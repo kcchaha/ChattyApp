@@ -32,7 +32,22 @@ class App extends Component {
       // Update the state of the app component.
       // Calling setState will trigger a call to render() in App and all child components.
       this.setState({messages: messages})
-    }, 3000);
+    });
+  }
+
+  incomingMessage(msg) {
+    const newMessage = {
+      id: this.state.messages.length + 1,
+      username: this.state.currentUser.name,
+      content: msg
+    }
+    console.log(newMessage);
+    const message = this.state.messages;
+    const oldMessages = message;
+    const newMessages = [...oldMessages, newMessage];
+    this.setState({
+      messages: newMessages
+    })
   }
 
   render() {
@@ -42,7 +57,8 @@ class App extends Component {
         <a href="/" className="navbar-brand">Chatty</a>
       </nav>
       <MessageList listChats={this.state.messages}/>
-      <ChatBar currentUser={this.state.currentUser}/>
+      <ChatBar currentUser={this.state.currentUser} 
+      incomingMessage={this.incomingMessage.bind(this)}/>
       </div>
     )
   }
