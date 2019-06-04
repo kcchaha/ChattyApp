@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 
 class Message extends Component {
   render() {
+      const {chat} = this.props
     return (
         <div>
         <div className="message">
-        <span className="message-username">Anonymous1</span>
-        <span className="message-content">I won't be impressed with technology until I can download food.</span>
+        <span className="message-username">{chat.username}</span>
+        <span className="message-content">{chat.content}</span>
       </div>
       <div className="message system">
-        Anonymous1 changed their name to nomnom.
+        {/* Anonymous1 changed their name to nomnom. */}
       </div>
       </div>
     )
