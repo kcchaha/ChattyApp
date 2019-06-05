@@ -77,6 +77,13 @@ body {
   position: fixed;
   right: 0;
   top: 0;
+
+  .userCount {
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
+    font-size: 15px;
+  }
 }
 
 .navbar-brand {

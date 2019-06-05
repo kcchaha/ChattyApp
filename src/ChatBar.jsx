@@ -22,6 +22,9 @@ class ChatBar extends Component {
       if (input.length > 0 && this.props.currentUser.name !== input) {
         this.props.updateUsername(input);
       }
+      if (input.length === 0 && this.props.currentUser.name !== 'Anonymous') {
+        this.props.updateUsername('Anonymous');
+      }
     }
   }
   

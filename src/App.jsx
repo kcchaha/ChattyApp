@@ -7,8 +7,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name}, 
-      messages: []
+      currentUser: {name: 'Anonymous'}, 
+      messages: [],
+      userCount: 0
     }
     this.incomingMessage = this.incomingMessage.bind(this);
   }
@@ -22,29 +23,33 @@ class App extends Component {
     webSocket.onmessage = event => {
       let msg = JSON.parse(event.data);
       console.log('got message from server:', msg)
-      this.setState({
-        messages: [...this.state.messages, msg]
-      })
+      console.log('event:', event)
+      msg === NaN 
+      ? this.setState({
+          messages: [...this.state.messages, msg]
+        }) 
+      : this.setState({ userCount: msg})  
     }
-  }
+  }  
 
   updateUsername = username => {
     const notification = {
       type: 'postNotification',
-      text: `User ${this.state.currentUser.name.length !== 0? this.state.currentUser.name : this.state.currentUser.name = "Anonymous"} changed their name to ${username.length !== 0? username : username = "Anonumous"}`
+      text: `User ${this.state.currentUser.name.length !== 0? this.state.currentUser.name : "Anonymous"} changed their name to ${username}`
     }
+
+    let name = username.length ? username : 'Anonymous'
 
     this.setState({
       currentUser: {name: username} 
     })
-
     this.webSocket.send(JSON.stringify(notification));
   }
 
   incomingMessage = msg => {
     const newMessage = {
       id: uuid.v4(),
-      username: this.state.currentUser.name.length !== 0? this.state.currentUser.name : this.state.currentUser.name = "Anonymous",
+      username: this.state.currentUser.name.length !== 0? this.state.currentUser.name : "Anonymous",
       content: msg
     }
     const message = this.state.messages;
@@ -62,6 +67,7 @@ class App extends Component {
       <div>
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
+        <span className="userCount">{this.state.userCount} users online</span>
       </nav>
       <MessageList listChats={this.state.messages}/>
       <ChatBar currentUser={this.state.currentUser} 
