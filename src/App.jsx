@@ -35,10 +35,6 @@ class App extends Component {
     // });
 
     this.webSocket = new WebSocket("ws://localhost:3001")
-
-    console.log(this.webSocket);
-      this.webSocket.onopen = (event) => {
-    }
   }
 
 

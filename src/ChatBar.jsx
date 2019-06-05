@@ -6,7 +6,7 @@ class ChatBar extends Component {
     // console.log(event.target.value)
     let input = event.target.value;
     if (!input) {
-      alert(`We can't send empty message`);
+      throw Error;
     } else {
       if (event.keyCode === 13) {
       this.props.incomingMessage(input);
