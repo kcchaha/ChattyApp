@@ -31,7 +31,7 @@ class App extends Component {
   updateUsername = username => {
     const notification = {
       type: 'postNotification',
-      text: `User ${this.state.currentUser.name} changed their name to ${username}`
+      text: `User ${this.state.currentUser.name.length !== 0? this.state.currentUser.name : this.state.currentUser.name = "Anonymous"} changed their name to ${username.length !== 0? username : username = "Anonumous"}`
     }
 
     this.setState({
@@ -44,7 +44,7 @@ class App extends Component {
   incomingMessage = msg => {
     const newMessage = {
       id: uuid.v4(),
-      username: this.state.currentUser.name.length === 0? "Anonymous" : this.state.currentUser.name,
+      username: this.state.currentUser.name.length !== 0? this.state.currentUser.name : this.state.currentUser.name = "Anonymous",
       content: msg
     }
     const message = this.state.messages;
