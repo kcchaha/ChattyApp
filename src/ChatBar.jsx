@@ -28,7 +28,7 @@ class ChatBar extends Component {
   render() {
     return (
       <form className="chatbar">
-        <input className="chatbar-username" placeholder={this.props.currentUser.name} onKeyUp={this.handleUsername} onBlur={this.handleUsername} />
+        <input className="chatbar-username" placeholder={this.props.currentUser.name > 0? this.props.currentUser.name : 'Anonymous'} onKeyUp={this.handleUsername} onBlur={this.handleUsername} />
         <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={this.handleKeyUp}/>
       </form>
     )

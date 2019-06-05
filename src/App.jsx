@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name : "Bob"}, 
+      currentUser: {name}, 
       messages: []
     }
     this.incomingMessage = this.incomingMessage.bind(this);
@@ -44,7 +44,7 @@ class App extends Component {
   incomingMessage = msg => {
     const newMessage = {
       id: uuid.v4(),
-      username: this.state.currentUser.name,
+      username: this.state.currentUser.name.length === 0? "Anonymous" : this.state.currentUser.name,
       content: msg
     }
     const message = this.state.messages;
