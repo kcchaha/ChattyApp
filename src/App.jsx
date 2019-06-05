@@ -29,9 +29,16 @@ class App extends Component {
   }
 
   updateUsername = username => {
+    const notification = {
+      type: 'postNotification',
+      text: `User ${this.state.currentUser.name} changed their name to ${username}`
+    }
+
     this.setState({
       currentUser: {name: username} 
     })
+
+    this.webSocket.send(JSON.stringify(notification));
   }
 
   incomingMessage = msg => {
