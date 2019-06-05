@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name}, 
+      currentUser: {name : "Bob"}, 
       messages: []
     }
     this.incomingMessage = this.incomingMessage.bind(this);
@@ -22,9 +22,17 @@ class App extends Component {
     webSocket.onmessage = event => {
       let msg = JSON.parse(event.data);
       console.log('got message from server:', msg)
+      this.setState({
+        messages: [...this.state.messages, msg]
+      })
     }
   }
 
+  updateUsername = username => {
+    this.setState({
+      currentUser: {name: username} 
+    })
+  }
 
   incomingMessage = msg => {
     const newMessage = {
@@ -32,8 +40,6 @@ class App extends Component {
       username: this.state.currentUser.name,
       content: msg
     }
-    console.log('incoming new msg',newMessage);
-    console.log('state',this.state.messages)
     const message = this.state.messages;
     const oldMessages = message;
     const newMessages = [...oldMessages, newMessage];
@@ -52,7 +58,8 @@ class App extends Component {
       </nav>
       <MessageList listChats={this.state.messages}/>
       <ChatBar currentUser={this.state.currentUser} 
-      incomingMessage={this.incomingMessage}/>
+      incomingMessage={this.incomingMessage}
+      updateUsername={this.updateUsername}/>
       </div>
     )
   }

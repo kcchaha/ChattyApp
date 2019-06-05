@@ -18,9 +18,7 @@ class ChatBar extends Component {
   handleUsername = event => {
     console.log(event.target.value);
     let input = event.target.value;
-    if (event.keyCode === 13) {
-      this.props.currentUser.name = input;
-    }
+    this.props.updateUsername(input);
   }
   
   render() {
