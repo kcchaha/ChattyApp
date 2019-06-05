@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class ChatBar extends Component {
   
   handleKeyUp = event => {
-    // console.log(event.target.value)
+    console.log(event.target.value)
     let input = event.target.value;
     if (!input) {
       throw Error;
@@ -14,11 +14,19 @@ class ChatBar extends Component {
       }
     }
   }
+
+  handleUsername = event => {
+    console.log(event.target.value);
+    let input = event.target.value;
+    if (event.keyCode === 13) {
+      this.props.currentUser.name = input;
+    }
+  }
   
   render() {
     return (
       <form className="chatbar">
-        <input className="chatbar-username" placeholder={this.props.currentUser.name} />
+        <input className="chatbar-username" placeholder={this.props.currentUser.name} onKeyUp={this.handleUsername}/>
         <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={this.handleKeyUp}/>
       </form>
     )

@@ -1,50 +1,39 @@
 import React, {Component} from 'react';
 import MessageList from '../src/MessageList.jsx';
 import ChatBar from '../src/ChatBar.jsx';
+import uuid from 'uuid';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: "Chenchen"}, 
-      messages: [
-    // {
-    //   username: "Chenchen",
-    //   content: "Has anyone seen my marbles?",
-    //   id: 1
-    // },
-    // {
-    //   username: "Anonymous",
-    //   content: "No, I think you lost them. You lost your marbles Chenchen. You lost them for good.",
-    //   id: 2
-    // }
-  ]
+      currentUser: {name}, 
+      messages: []
     }
+    this.incomingMessage = this.incomingMessage.bind(this);
   }
 
   componentDidMount() {
     console.log("componentDidMount <App />");
-    // setTimeout(() => {
-    //   console.log("Simulating incoming message");
-    //   // Add a new message to the list of messages in the data store
-    //   const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-    //   const messages = this.state.messages.concat(newMessage)
-    //   // Update the state of the app component.
-    //   // Calling setState will trigger a call to render() in App and all child components.
-    //   this.setState({messages: messages})
-    // });
 
-    this.webSocket = new WebSocket("ws://localhost:3001")
+    const webSocket = new WebSocket("ws://localhost:3001")
+    this.webSocket = webSocket;
+    
+    webSocket.onmessage = event => {
+      let msg = JSON.parse(event.data);
+      console.log('got message from server:', msg)
+    }
   }
 
 
   incomingMessage = msg => {
     const newMessage = {
-      id: this.state.messages.length + 1,
+      id: uuid.v4(),
       username: this.state.currentUser.name,
       content: msg
     }
-    console.log(newMessage);
+    console.log('incoming new msg',newMessage);
+    console.log('state',this.state.messages)
     const message = this.state.messages;
     const oldMessages = message;
     const newMessages = [...oldMessages, newMessage];
