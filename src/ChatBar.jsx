@@ -16,7 +16,6 @@ class ChatBar extends Component {
   }
 
   handleUsername = event => {
-    console.log(event.target.value);
     let input = event.target.value;
     this.props.updateUsername(input);
   }
