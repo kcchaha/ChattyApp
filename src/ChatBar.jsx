@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class ChatBar extends Component {
   
-  handleKeyDown(event) {
+  handleKeyUp = event => {
     // console.log(event.target.value)
     let input = event.target.value;
     if (!input) {
@@ -19,7 +19,7 @@ class ChatBar extends Component {
     return (
       <form className="chatbar">
         <input className="chatbar-username" placeholder={this.props.currentUser.name} />
-        <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={this.handleKeyDown.bind(this)}/>
+        <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={this.handleKeyUp}/>
       </form>
     )
   }

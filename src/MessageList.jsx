@@ -3,7 +3,7 @@ import Message from '../src/Message.jsx';
 
 class MessageList extends Component {
 
-  listMessages() {
+  listMessages = () => {
     return (
       this.props.listChats.map((chat) => {
         return <Message key={chat.id} chat={chat}/>

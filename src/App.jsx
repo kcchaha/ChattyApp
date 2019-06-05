@@ -8,16 +8,16 @@ class App extends Component {
     this.state = {
       currentUser: {name: "Chenchen"}, 
       messages: [
-    {
-      username: "Chenchen",
-      content: "Has anyone seen my marbles?",
-      id: 1
-    },
-    {
-      username: "Anonymous",
-      content: "No, I think you lost them. You lost your marbles Chenchen. You lost them for good.",
-      id: 2
-    }
+    // {
+    //   username: "Chenchen",
+    //   content: "Has anyone seen my marbles?",
+    //   id: 1
+    // },
+    // {
+    //   username: "Anonymous",
+    //   content: "No, I think you lost them. You lost your marbles Chenchen. You lost them for good.",
+    //   id: 2
+    // }
   ]
     }
   }
@@ -38,7 +38,7 @@ class App extends Component {
   }
 
 
-  incomingMessage(msg) {
+  incomingMessage = msg => {
     const newMessage = {
       id: this.state.messages.length + 1,
       username: this.state.currentUser.name,
@@ -63,7 +63,7 @@ class App extends Component {
       </nav>
       <MessageList listChats={this.state.messages}/>
       <ChatBar currentUser={this.state.currentUser} 
-      incomingMessage={this.incomingMessage.bind(this)}/>
+      incomingMessage={this.incomingMessage}/>
       </div>
     )
   }

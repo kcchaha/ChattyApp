@@ -19,7 +19,6 @@ const wss = new SocketServer({ server });
 wss.on('connection', (ws) => {
   console.log('Client connected');
   ws.on('message', function incoming(message) {
-    // console.log(JSON.parse(message));
     let msg = JSON.parse(message);
     console.log(`User ${msg.username} said ${msg.content}`)
   });
