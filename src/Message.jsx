@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 
 class Message extends Component {
+ 
   render() {
-    {console.log('coooooooooooooo',this.props)}
-
       const {chat} = this.props
+      const checkImgUrl = url => {
+        const regexp =  /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+          if (regexp.test(url)) {
+            return true;
+          } else {
+            return false;
+          }
+      }
 
       if (this.props.isNotification === true) {
         return (
@@ -15,12 +22,12 @@ class Message extends Component {
           </div>
         )
       }
-
+      console.log('gufghufghfughfughfughfugfhu',chat)
     return (
         <div>
           <div className="message">
             <span style={{color: this.props.color}} className="message-username">{chat.username}</span>
-            <span className="message-content">{chat.content}</span>
+            <span className="message-content">{checkImgUrl(chat.content)? <img className="chat-img" src={chat.content} /> : chat.content}</span>
           </div>
         </div>
     )

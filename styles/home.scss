@@ -11,6 +11,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   margin: 70px 0;
+  min-width: 450px;
+
 }
 
 .chatbar {
@@ -61,6 +63,9 @@ body {
 
 .message-content {
   flex: 8;
+  .chat-img {
+    max-width: 80%;
+  }
 }
 
 .message-username {

@@ -26,8 +26,7 @@ class App extends Component {
       console.log('event:', event)
       if (msg.type === 'userCount') {
         this.setState({userCount: msg.number})
-      } 
-      if (msg.type === 'nameColor') {
+      } else if (msg.type === 'nameColor') {
         this.setState({nameColor: msg.color})
       } else {
         this.setState({messages: [...this.state.messages, msg]})
