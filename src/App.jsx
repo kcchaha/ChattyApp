@@ -24,11 +24,13 @@ class App extends Component {
       let msg = JSON.parse(event.data);
       console.log('got message from server:', msg)
       console.log('event:', event)
-      msg === NaN 
-      ? this.setState({
-          messages: [...this.state.messages, msg]
+      msg.type === 'userCount' ?
+      this.setState({
+        userCount: msg.number
         }) 
-      : this.setState({ userCount: msg})  
+      : this.setState({ 
+        messages: [...this.state.messages, msg]
+      })
     }
   }  
 

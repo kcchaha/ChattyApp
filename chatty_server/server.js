@@ -18,11 +18,16 @@ const wss = new SocketServer({ server });
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 
-wss.on('connection', (ws) => {
 
+
+wss.on('connection', (ws) => {
+  const userCount = {
+    type: 'userCount',
+    number: wss.clients.size
+  }
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
-      client.send(wss.clients.size);
+      client.send(JSON.stringify(userCount));
     }
   });
 
