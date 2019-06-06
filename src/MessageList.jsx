@@ -7,9 +7,9 @@ class MessageList extends Component {
     return (
       this.props.listChats.map((chat) => {
         if (chat.type === 'postNotification') {
-          return <Message key={chat.id} chat={chat} isNotification={true} />
+          return <Message key={chat.id} chat={chat} isNotification={true}/>
         } 
-        return <Message key={chat.id} chat={chat}/>
+        return <Message key={chat.id} chat={chat} color={chat.color}/>
       })
     )
   }
