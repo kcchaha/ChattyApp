@@ -59,5 +59,5 @@ npm run lint
 
 
 ## Screenshots of Final product
-!["Main chat"]()
-!["Multi-user chat"]()
+!["Main chat"](https://github.com/kcchaha/ChattyApp/blob/master/Docs/Main%20chat.png)
+!["Multi-user chat"](https://github.com/kcchaha/ChattyApp/blob/master/Docs/Multi-user%20chat.png)
