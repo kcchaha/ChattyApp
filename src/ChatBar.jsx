@@ -2,14 +2,13 @@ import React, {Component} from 'react';
 
 class ChatBar extends Component {
   
-  handleKeyUp = event => {
-    console.log(event.target.value)
+  handleMessage = event => {
     let input = event.target.value;
     if (!input) {
       throw Error;
     } else {
       if (event.keyCode === 13) {
-        this.props.incomingMessage(input);
+        this.props.createMessage(input);
         event.target.value = '';
       }
     }
@@ -17,12 +16,13 @@ class ChatBar extends Component {
 
   handleUsername = event => {
     let input = event.target.value;
+    const {name} = this.props.currentUser;
     
     if (event.keyCode === 13 || event.type === 'blur') {
-      if (input.length > 0 && this.props.currentUser.name !== input) {
+      if (input.length > 0 && name !== input) {
         this.props.updateUsername(input);
       }
-      if (input.length === 0 && this.props.currentUser.name !== 'Anonymous') {
+      if (input.length === 0 && name !== 'Anonymous') {
         this.props.updateUsername('Anonymous');
       }
     }
@@ -32,10 +32,10 @@ class ChatBar extends Component {
     return (
       <form className="chatbar">
         <input className="chatbar-username" placeholder={this.props.currentUser.name > 0? this.props.currentUser.name : 'Anonymous'} onKeyUp={this.handleUsername} onBlur={this.handleUsername} />
-        <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={this.handleKeyUp}/>
+        <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={this.handleMessage}/>
       </form>
     )
   }
 }
 
-export default ChatBar
+export default ChatBar;

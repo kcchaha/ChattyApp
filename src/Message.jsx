@@ -3,8 +3,11 @@ import React, {Component} from 'react';
 class Message extends Component {
  
   render() {
-      const {chat} = this.props
-      const checkImgUrl = url => {
+      const {chat} = this.props;
+      const {isNotification} = this.props;
+
+      // check the message input is a valid url of image
+      const checkImgUrl = url => { 
         const regexp =  /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
           if (regexp.test(url)) {
             return true;
@@ -13,7 +16,7 @@ class Message extends Component {
           }
       }
 
-      if (this.props.isNotification === true) {
+      if (isNotification === true) {
         return (
           <div>
             <div className="message system">
@@ -22,7 +25,6 @@ class Message extends Component {
           </div>
         )
       }
-      console.log('gufghufghfughfughfughfugfhu',chat)
     return (
         <div>
           <div className="message">
@@ -34,4 +36,4 @@ class Message extends Component {
   }
 }
 
-export default Message
+export default Message;

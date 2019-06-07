@@ -3,6 +3,7 @@ import MessageList from '../src/MessageList.jsx';
 import ChatBar from '../src/ChatBar.jsx';
 import uuid from 'uuid';
 
+// Set states for parent App
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,51 +15,47 @@ class App extends Component {
     }
   }
 
+  // States change when receiving data from web socket server
   componentDidMount() {
-    console.log("componentDidMount <App />");
-
     const webSocket = new WebSocket("ws://localhost:3001")
     this.webSocket = webSocket;
     
     webSocket.onmessage = event => {
       let msg = JSON.parse(event.data);
-      console.log('got message from server:', msg)
-      console.log('event:', event)
+    
       if (msg.type === 'userCount') {
         this.setState({userCount: msg.number})
       } else if (msg.type === 'nameColor') {
-        this.setState({nameColor: msg.color})
+        this.setState({nameColor: msg.color});
       } else {
-        this.setState({messages: [...this.state.messages, msg]})
+        this.setState({messages: [...this.state.messages, msg]});
       }
     }
   }  
 
+  // Send notification to web socket server when a users change their name
   updateUsername = username => {
+    const {name} = this.state.currentUser
     const notification = {
       type: 'postNotification',
-      text: `User ${this.state.currentUser.name.length !== 0? this.state.currentUser.name : "Anonymous"} changed their name to ${username}`
+      text: `User ${name.length !== 0? name : "Anonymous"} changed their name to ${username}`
     }
 
     this.setState({
-      currentUser: {name: username} 
+      currentUser: {name: username}
     })
     this.webSocket.send(JSON.stringify(notification));
   }
 
-  incomingMessage = msg => {
+  // Create/edit new messages and send to the web socket server
+  createMessage = msg => {
+    const {name} = this.state.currentUser
     const newMessage = {
       id: uuid.v4(),
-      username: this.state.currentUser.name.length !== 0? this.state.currentUser.name : "Anonymous",
+      username: name.length !== 0? name : "Anonymous",
       content: msg,
       color: this.state.nameColor
     }
-    const message = this.state.messages;
-    const oldMessages = message;
-    const newMessages = [...oldMessages, newMessage];
-    // this.setState({
-    //   messages: newMessages
-    // })
     
     this.webSocket.send(JSON.stringify(newMessage));
   }
@@ -68,12 +65,12 @@ class App extends Component {
       <div>
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
-        <span className="userCount">{this.state.userCount} users online</span>
+        <span className="userCount">{this.state.userCount} user(s) online</span>
       </nav>
       <MessageList listChats={this.state.messages}
       nameColor={this.state.nameColor}/>
       <ChatBar currentUser={this.state.currentUser} 
-      incomingMessage={this.incomingMessage}
+      createMessage={this.createMessage}
       updateUsername={this.updateUsername}/>
       </div>
     )

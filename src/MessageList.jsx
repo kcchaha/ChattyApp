@@ -7,9 +7,9 @@ class MessageList extends Component {
     return (
       this.props.listChats.map((chat) => {
         if (chat.type === 'postNotification') {
-          return <Message key={chat.id} chat={chat} isNotification={true}/>
+          return <Message key={chat.id} chat={chat} isNotification={true}/>;
         } 
-        return <Message key={chat.id} chat={chat} color={chat.color}/>
+        return <Message key={chat.id} chat={chat} color={chat.color}/>;
       })
     )
   }
@@ -23,4 +23,4 @@ class MessageList extends Component {
   }
 }
 
-export default MessageList
+export default MessageList;
